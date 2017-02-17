@@ -1,0 +1,63 @@
+<div class="col-md-12 col-md-offset-0">
+  <div class="panel panel-default panel-table">
+    <div class="panel-heading">
+      <div class="row">
+        <div class="col col-xs-6">
+          <h3 class="panel-title">Alben</h3>
+        </div>
+        <div class="col col-xs-6 text-right">
+          <button type="button"
+            class="btn btn-sm btn-primary btn-create btn-info btn-lg"
+            onclick="setModal('/album-edit.html', 'Album anlegen', '/articles')"
+            data-toggle="modal" data-target="#myModal">
+            <span class="glyphicon glyphicon-plus"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="panel-body">
+      <table class="table table-striped table-bordered table-list">
+        <thead>
+          <tr>
+            <th>Aktion</th>
+            <th class="hidden">ID</th>
+            <th>Name</th>
+            <th>Titel</th>
+            <th>Erscheinungsjahr</th>
+          </tr>
+        </thead>
+        <tbody class="albumsTable">
+          <tr>
+            <td align="center"><a class="btn btn-default"
+              data-toggle="modal" data-target="#myModal"><em
+                class="glyphicon glyphicon-pencil"
+                onclick="setModal('/album-edit.html', 'Album anlegen', '/articles/1')"></em></a>
+              <a class="btn btn-danger disabled"><em
+                class="glyphicon glyphicon-trash"></em></a></td>
+            <td class="hidden-xs">1</td>
+            <td>John Doe</td>
+            <td>23</td>
+            <td>2</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+    <div class="panel-footer">
+      <div class="row">
+        <ul class="pagination hidden-xs pull-right">
+          <li class="albums-pagination" id="albums-page-first"><span
+            class="glyphicon glyphicon-step-backward"></span></li>
+          <li class="albums-pagination" id="albums-page-before"><span
+            class="glyphicon glyphicon-backward"></span></li>
+          <li class="albums-pagination" id="albums-page-next"><span
+            class="glyphicon glyphicon-forward"></span></li>
+          <li class="albums-pagination" id="albums-page-last"><span
+            class="glyphicon glyphicon-step-forward"></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/albums.js"></script>

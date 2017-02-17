@@ -1,0 +1,81 @@
+<form class="form-horizontal" id="form-id" action="/albums">
+  <input type="text" class=" form-control hidden" id="album-edit-id" class="id">
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="email">Name:</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="album-edit-label"
+        placeholder="Name des Albums">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="pwd">Erscheinungsjahr:</label>
+    <div class="col-sm-10">
+      <input type="number" class="form-control" id="album-edit-year"
+        placeholder="Erscheinungsjahr" min="1900" max="2099">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="pwd">Beschreibung:</label>
+    <div class="col-sm-10">
+      <textarea type="text" class="form-control" id="album-edit-description"
+        placeholder="Beschreibung"></textarea>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-default">Submit</button>
+    </div>
+  </div>
+<script>
+// Attach a submit handler to the form
+$( "#form-id" ).submit(function( event ) {
+
+  // Stop form from submitting normally
+  event.preventDefault();
+
+  // Get some values from elements on the page:
+  var $form = $( this );
+  formLabel = $form.find( "input[id='album-edit-label']" ).val(),
+  formId = $form.find( "input[id='album-edit-id']" ).val(),
+  formYear = $form.find( "input[id='album-edit-year']" ).val(),
+  formDescription = $form.find("textarea[id='album-edit-description']" ).val(),
+  url = $form.attr( "action" );
+
+  json = {};
+  json.label = formLabel;
+  json.year = formYear;
+  json.description = formDescription;
+  if (formId.length === 0) {
+  $.ajax({
+	    type: "POST",
+	    url: url,
+	    data: JSON.stringify(json),
+	    contentType: "application/json; charset=utf-8",
+	    dataType: "json",
+	    success: function(data){
+	    	setContent("/albums.html");
+	    	$('#myModal').modal('hide');
+	    },
+	    failure: function(errMsg) {
+	     alert("Failed generating item"); // TODO
+	    }
+	});
+  } else {
+  $.ajax({
+      type: "PUT",
+      url: formId,
+      data: JSON.stringify(json),
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
+      success: function(data){
+        setContent("/albums.html");
+        $('#myModal').modal('hide');
+      },
+      failure: function(errMsg) {
+       alert("Failed generating item"); // TODO
+      }
+  });
+  }
+});
+
+</script>
