@@ -64,10 +64,6 @@ function setTitlesPage(page) {
               $('#titles-page-last').attr('page', data.page.totalPages - 1);
               $('#titles-page-last').removeClass('disabled');
             }
-            $('[data-toggle=confirmation]').confirmation({
-              rootSelector: '[data-toggle=confirmation]',
-              container: 'body'
-            });
           });
 };
 

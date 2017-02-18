@@ -61,10 +61,6 @@ function setArtistsPage(page) {
               $('#artists-page-last').attr('page', data.page.totalPages - 1);
               $('#artists-page-last').removeClass('disabled');
             }
-            $('[data-toggle=confirmation]').confirmation({
-              rootSelector: '[data-toggle=confirmation]',
-              container: 'body'
-            });
           });
 };
 

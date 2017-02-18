@@ -40,7 +40,7 @@ function setAlbumsPage(page) {
                     },
                     async : false
                   });
-                  tbl_row += "<td data-toggle=\"tooltip\" title=\"" + titleNames + "\" role=\"button\" data-toggle=\"modal\" data-target=\"#myModal\" onclick=\"showAssignTitlesModal('/assign-titles.html', '"
+                  tbl_row += "<td data-toggle=\"modal\" title=\"" + titleNames + "\" role=\"button\" data-target=\"#myModal\" onclick=\"showAssignTitlesModal('/assign-titles.html', '"
                     + value.label
                     + "', '" + value._links.titles.href + "')\">"
                     + titles
@@ -75,10 +75,6 @@ function setAlbumsPage(page) {
           $('#albums-page-last').attr('page', data.page.totalPages - 1);
           $('#albums-page-last').removeClass('disabled');
         }
-        $('[data-toggle=confirmation]').confirmation({
-          rootSelector: '[data-toggle=confirmation]',
-          container: 'body'
-        });
             $('[data-toggle="tooltip"]').tooltip();   
       });
 };
