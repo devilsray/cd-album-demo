@@ -1,23 +1,23 @@
-<form class="form-horizontal" id="form-id" action="/albums">
+<form class="form-horizontal" id="form-id" action="/artists">
   <!--   Used to handle updates -->
-  <input type="text" class=" form-control hidden" id="album-edit-id" class="id">
+  <input type="text" class=" form-control hidden" id="artist-edit-id" class="id">
   <div class="form-group">
     <label class="control-label col-sm-2" for="email">Name:</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="album-edit-label" placeholder="Name des Albums">
+      <input type="text" class="form-control" id="artist-edit-label" placeholder="Name des Albums">
     </div>
   </div>
   <div class="form-group">
     <label class="control-label col-sm-2" for="pwd">Erscheinungsjahr:</label>
     <div class="col-sm-10">
       <!--       Min / max is set to easy force uniform year format -->
-      <input type="number" class="form-control" id="album-edit-year" placeholder="Erscheinungsjahr" min="1900" max="2030">
+      <input type="number" class="form-control" id="artist-edit-year" placeholder="Erscheinungsjahr" min="1900" max="2030">
     </div>
   </div>
   <div class="form-group">
     <label class="control-label col-sm-2" for="pwd">Beschreibung:</label>
     <div class="col-sm-10">
-      <textarea class="form-control" id="album-edit-description" placeholder="Beschreibung"></textarea>
+      <textarea class="form-control" id="artist-edit-description" placeholder="Beschreibung"></textarea>
     </div>
   </div>
   <div class="form-group">
@@ -26,4 +26,4 @@
     </div>
   </div>
 </form>
-<script src="/album-edit.js"></script>
+<script src="/artist-edit.js"></script>
