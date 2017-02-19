@@ -13,38 +13,35 @@
 </head>
 <body>
 
-<!-- Modal -->
-<div class="modal fade" id="myModal" role="dialog">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Bearbeiten / Erstellen</h4>
-      </div>
-      <div class="modal-body">
-        <p>This is a large modal.</p>
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Bearbeiten / Erstellen</h4>
+        </div>
+        <div class="modal-body">
+          <p>This is a large modal.</p>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#" onclick="setContent('/home.html')" >CD Verwaltung</a>
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#" onclick="setContent('/home.html')">CD Verwaltung</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li class=""><a class="dropdown-toggle" data-toggle="dropdown" href="#" onclick="setContent('/albums.html')"><span class="glyphicon glyphicon-record"></span> Alben</a></li>
+        <li class=""><a class="dropdown-toggle" data-toggle="dropdown" href="#" onclick="setContent('/titles.html')"><span class="glyphicon glyphicon-music"></span> Titel</a></li>
+        <li class=""><a class="dropdown-toggle" data-toggle="dropdown" href="#" onclick="setContent('/artists.html')"><span class="glyphicon glyphicon-user"></span> Künstler</a></li>
+      </ul>
     </div>
-    <ul class="nav navbar-nav">
-      <li class=""><a class="dropdown-toggle" data-toggle="dropdown" href="#" onclick="setContent('/albums.html')"><span class="glyphicon glyphicon-record"></span> Alben</a>
-      </li>
-      <li class=""><a class="dropdown-toggle" data-toggle="dropdown" href="#" onclick="setContent('/titles.html')"><span class="glyphicon glyphicon-music"></span> Titel</a>
-      </li>
-      <li class=""><a class="dropdown-toggle" data-toggle="dropdown" href="#" onclick="setContent('/artists.html')"><span class="glyphicon glyphicon-user"></span> Künstler</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+  </nav>
 
-<div class="container">
-  <h3>CD Verwaltung Demo</h3>
-</div>
+  <div class="container">
+    <h3>CD Verwaltung Demo</h3>
+  </div>
 </body>
 </html>

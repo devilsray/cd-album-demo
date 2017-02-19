@@ -1,3 +1,9 @@
+<ul>
+  <li>Tooltips zeigen die Beschreibung des jeweiligen Albums an</li>
+  <li>Durch Klick auf die Anzahl der Titel kann eine Zuweisung erfolgen</li>
+  <li>Tooltips zeigen die Titelbezeichnungen an wenn die Maus über der Anzahl ist</li>
+  <li>Titel und Interpreten können nur in den jeweiligen Tabs verwaltet werden.</li>
+</ul>
 <div class="col-md-12 col-md-offset-0">
   <div class="panel panel-default panel-table">
     <div class="panel-heading">
@@ -6,10 +12,8 @@
           <h3 class="panel-title">Alben</h3>
         </div>
         <div class="col col-xs-6 text-right">
-          <button type="button"
-            class="btn btn-sm btn-primary btn-create btn-info btn-lg"
-            onclick="setModal('/album-edit.html', 'Album anlegen', '/articles')"
-            data-toggle="modal" data-target="#myModal">
+          <button type="button" class="btn btn-sm btn-primary btn-create btn-info btn-lg" onclick="setModal('/album-edit.html', 'Album anlegen', '/articles')" data-toggle="modal"
+            data-target="#myModal">
             <span class="glyphicon glyphicon-plus"></span>
           </button>
         </div>
@@ -29,19 +33,14 @@
         <tbody class="albumsTable">
         </tbody>
       </table>
-
     </div>
     <div class="panel-footer">
       <div class="row">
         <ul class="pagination hidden-xs pull-right">
-          <li class="albums-pagination" id="albums-page-first"><span
-            class="glyphicon glyphicon-step-backward"></span></li>
-          <li class="albums-pagination" id="albums-page-before"><span
-            class="glyphicon glyphicon-backward"></span></li>
-          <li class="albums-pagination" id="albums-page-next"><span
-            class="glyphicon glyphicon-forward"></span></li>
-          <li class="albums-pagination" id="albums-page-last"><span
-            class="glyphicon glyphicon-step-forward"></span></li>
+          <li class="albums-pagination" id="albums-page-first"><span class="glyphicon glyphicon-step-backward"></span></li>
+          <li class="albums-pagination" id="albums-page-before"><span class="glyphicon glyphicon-backward"></span></li>
+          <li class="albums-pagination" id="albums-page-next"><span class="glyphicon glyphicon-forward"></span></li>
+          <li class="albums-pagination" id="albums-page-last"><span class="glyphicon glyphicon-step-forward"></span></li>
         </ul>
       </div>
     </div>

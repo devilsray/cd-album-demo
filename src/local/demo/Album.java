@@ -2,6 +2,7 @@ package local.demo;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -22,13 +23,13 @@ public class Album {
 
   private String      label;
 
+  @Column(columnDefinition = "LONGTEXT")
   private String      description;
 
   private Integer     year;
 
   @ManyToMany(fetch = FetchType.LAZY)
-  @JoinTable(name = "albums_titles_mapping", joinColumns = { @JoinColumn(name = "albums_id") }, inverseJoinColumns = {
-      @JoinColumn(name = "titles_id") })
+  @JoinTable(name = "albums_titles_mapping", joinColumns = { @JoinColumn(name = "albums_id") }, inverseJoinColumns = { @JoinColumn(name = "titles_id") })
   private List<Title> titles;
 
   public long getId() {
