@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('albumsApp', [ 'ngAnimate', 'ngRoute' ]).config(function($routeProvider) {
+var app = angular.module('albumsApp', [ 'ngAnimate', 'ngRoute' ]).config(function($routeProvider) {
   $routeProvider.when('/home', {
     templateUrl : '/home.html'
   }).when('/albums', {
@@ -27,8 +27,9 @@ angular.module('albumsApp', [ 'ngAnimate', 'ngRoute' ]).config(function($routePr
       }, 0);
     }
   };
-}).controller('AlbumsCtrl', function($scope, $http) {
-  $http.get('/albums').then(function(albumsResponse) {
+}).controller('AlbumsCtrl', function($scope, $http, CurrentAlbum) {
+  $http.get('/albums', {headers : {'Content-Type' : 'application/json; charset=UTF-8'}
+  }).then(function(albumsResponse) {
     $scope.albums = albumsResponse.data._embedded.albums;
     console.log(albumsResponse.data);
     $scope.config = {
@@ -42,16 +43,43 @@ angular.module('albumsApp', [ 'ngAnimate', 'ngRoute' ]).config(function($routePr
       return active;
     };
     $scope.loadAlbum = function(album) {
+      console.log("setting album");
       $scope.selectedAlbum = album;
-      //TODO load album's titles / rename function
+      CurrentAlbum.setAlbum(album);
+      // TODO load album's titles / rename function
     };
   });
 }).controller('TitlesCtrl', function($scope, $http) {
   $http.get('/titles').then(function(titlesResponse) {
     $scope.titles = titlesResponse.data._embedded.titles;
   });
+}).controller('AlbumTitlesCtrl', function($scope, $http, CurrentAlbum) {
+  $scope.$watch(function() {
+    return CurrentAlbum.getAlbum();
+  }, function(album) {
+    if (typeof (album) === 'undefined')
+      return;
+    $scope.number = album;
+    $http.get(album._links.titles.href).then(function(titlesResponse) {
+      $scope.albumTitles = titlesResponse.data._embedded.titles;
+    });
+  });
+
 }).controller('ArtistsCtrl', function($scope, $http) {
   $http.get('/artists').then(function(artistsResponse) {
     $scope.artists = artistsResponse.data._embedded.artists;
   });
-})
+});
+app.factory("CurrentAlbum", function() {
+  var album;
+  function getAlbum() {
+    return album;
+  }
+  function setAlbum(newAlbum) {
+    album = newAlbum;
+  }
+  return {
+    getAlbum : getAlbum,
+    setAlbum : setAlbum,
+  }
+});
