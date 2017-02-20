@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="albumsApp">
+<head>
+<title>CD Verwaltung</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
+<link rel="stylesheet" href="/index.css">
+<script src="/jquery-3.1.1.min.js"></script>
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Bearbeiten / Erstellen</h4>
+        </div>
+        <div class="modal-body">
+          <p>This is a large modal.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#" onclick="setContent('/home.html')">CD Verwaltung</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li class=""><a href="#/albums"><span class="glyphicon glyphicon-record"></span> Alben</a></li>
+        <li class=""><a href="#/titles"><span class="glyphicon glyphicon-music"></span> Titel</a></li>
+        <li class=""><a href="#/artists"><span class="glyphicon glyphicon-user"></span> Künstler</a></li>
+      </ul>
+    </div>
+  </nav>
+    <div ng-view></div>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-animate.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-route.js"></script>
+  <script src="/angularjs/app.js"></script>
+</body>
+</html>
