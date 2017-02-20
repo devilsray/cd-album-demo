@@ -32,6 +32,8 @@ var app = angular.module('albumsApp', [ 'ngAnimate', 'ngRoute' ]).config(functio
   }).then(function(albumsResponse) {
     $scope.albums = albumsResponse.data._embedded.albums;
     console.log(albumsResponse.data);
+    $scope.selectedAlbum = undefined;
+    CurrentAlbum.setAlbum(undefined);
     $scope.config = {
       itemsPerPage : albumsResponse.data.size,
       fillLastPage : true
