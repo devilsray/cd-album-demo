@@ -11,7 +11,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="artist in artists | filter:search">
+      <tr ng-repeat="artist in artists | filter:search | orderBy : 'label'">
         <td scope="row">{{artist.label}}</td>
         <td>{{artist.duration}}</td>
       </tr>

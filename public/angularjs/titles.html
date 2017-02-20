@@ -12,7 +12,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="title in titles | filter:search">
+      <tr ng-repeat="title in titles | filter:search | orderBy : 'label'">
         <td scope="row">{{title.label}}</td>
         <td>{{title.duration}}</td>
         <td>--</td>

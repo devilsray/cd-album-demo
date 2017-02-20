@@ -28,7 +28,7 @@ var app = angular.module('albumsApp', [ 'ngAnimate', 'ngRoute' ]).config(functio
     }
   };
 }).controller('AlbumsCtrl', function($scope, $http, CurrentAlbum) {
-  $http.get('/albums', {headers : {'Content-Type' : 'application/json; charset=UTF-8'}
+  $http.get('/albums?sort=label.dir=DESC', {headers : {'Content-Type' : 'application/json; charset=UTF-8'}
   }).then(function(albumsResponse) {
     $scope.albums = albumsResponse.data._embedded.albums;
     console.log(albumsResponse.data);
@@ -52,7 +52,7 @@ var app = angular.module('albumsApp', [ 'ngAnimate', 'ngRoute' ]).config(functio
     };
   });
 }).controller('TitlesCtrl', function($scope, $http) {
-  $http.get('/titles').then(function(titlesResponse) {
+  $http.get('/titles?sort=label.dir=DESC').then(function(titlesResponse) {
     $scope.titles = titlesResponse.data._embedded.titles;
   });
 }).controller('AlbumTitlesCtrl', function($scope, $http, CurrentAlbum) {
@@ -68,7 +68,7 @@ var app = angular.module('albumsApp', [ 'ngAnimate', 'ngRoute' ]).config(functio
   });
 
 }).controller('ArtistsCtrl', function($scope, $http) {
-  $http.get('/artists').then(function(artistsResponse) {
+  $http.get('/artists?sort=label.dir=DESC').then(function(artistsResponse) {
     $scope.artists = artistsResponse.data._embedded.artists;
   });
 });
