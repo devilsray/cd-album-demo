@@ -86,7 +86,7 @@ var app = angular.module('albumsApp', [ 'ngAnimate', 'ngRoute' ]).config(functio
       console.log(data);
         $("#message").alert();
         $("#message").addClass("alert-error");
-        $("#messageContent").html("Löschen des Titels nicht möglich. " + status);
+        $("#messageContent").html("Löschen des Titels nicht möglich. Fehler " + status + " Meldung: " + data.message);
         $("#message").fadeTo(2000, 500).slideUp(500, function(){
         $("#message").slideUp(500);
         $("#message").removeClass("alert-error");
@@ -109,6 +109,31 @@ var app = angular.module('albumsApp', [ 'ngAnimate', 'ngRoute' ]).config(functio
   $http.get('/artists?sort=label.dir=DESC').then(function(artistsResponse) {
     $scope.artists = artistsResponse.data._embedded.artists;
   });
+  
+  $scope.deleteArtist = function (artist) {
+    $http.delete(artist._links.self.href)
+    .success(function (data, status, headers) {
+      var index = $scope.artists.indexOf(artist);
+      $scope.artists.splice(index, 1);
+      $("#message").alert();
+      $("#message").addClass("alert-success");
+      $("#messageContent").html("Künstler wurde gelöscht");
+      $("#message").fadeTo(2000, 500).slideUp(500, function(){
+      $("#message").slideUp(500);
+      $("#message").removeClass("alert-success");
+      });
+    })
+    .error(function (data, status, header, config) {
+      console.log(data);
+        $("#message").alert();
+        $("#message").addClass("alert-danger");
+        $("#messageContent").html("Löschen des Titels nicht möglich. Fehler " + status + " Meldung: " + data.message);
+        $("#message").fadeTo(8000, 500).slideUp(500, function(){
+        $("#message").slideUp(500);
+        $("#message").removeClass("alert-danger");
+        });
+    });
+  }
 });
 app.factory("CurrentAlbum", function() {
   var album;
