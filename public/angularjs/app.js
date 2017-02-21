@@ -52,12 +52,12 @@ var app = angular.module('albumsApp', [ 'ngAnimate', 'ngRoute' ]).config(functio
       // TODO load album's titles / rename function
     };
   });
-}).controller('TitlesCtrl', function($scope, $http) {
+}).controller('TitlesCtrl', function($scope, $http) { // TODO ompimize to not spam the ram. Remove older emelemts from list
   $scope.page = -1;
   $scope.titles = [];
   $scope.loadMoreRecords = function() {
     $scope.page++;
-    $http.get('/titles?sort=label.dir=DESC&size=5&page=' + $scope.page).then(function(titlesResponse) {
+    $http.get('/titles?sort=label.dir=DESC&size=20&page=' + $scope.page).then(function(titlesResponse) {
       $scope.titles.push.apply($scope.titles, (titlesResponse.data._embedded.titles));
     });
   }

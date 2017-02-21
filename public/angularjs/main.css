@@ -1,0 +1,40 @@
+
+body {
+    overflow-x: hidden;
+}
+
+html,
+body {
+    padding: 0;
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    overflow: hidden;
+    height: 100vh;
+    padding-top: 100px;
+    position: relative;
+    width: 100%;
+    backface-visibility: hidden;
+    will-change: overflow;
+}
+
+.content {
+    overflow: auto;
+    height: auto;
+    padding: .5rem;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none;
+    
+}
+
+.content::-webkit-scrollbar{
+    display: none;
+}
+.content {
+    flex: 1;
+}
+  .modal-dialog {
+  padding-top: 10em;
+}

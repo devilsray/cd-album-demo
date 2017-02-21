@@ -1,4 +1,4 @@
-  <div class="container" style="padding-top:40px"  ng-controller="TitlesCtrl">
+  <div class="content" ng-controller="TitlesCtrl" lazy-load>
     <div class="input-group" style="margin-bottom: 15px">
       <div class="input-group-btn">
         <button class='btn btn-primary' ng-click="resetList()">RESET</button>
@@ -6,7 +6,7 @@
       <input class="form-control" ng-model="search">
     </div>
 
-    <ul class="list-group" style="height: 200px; overflow-y: auto" lazy-load>
+    <ul class="list-group" style=" overflow-y: auto" >
       <li class="list-group-item" ng-repeat="title in titles | filter: {'label': search}"> {{ title.label }}</li>
     </ul>
   </div>

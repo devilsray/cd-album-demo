@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
-<link rel="stylesheet" href="/index.css">
+<link rel="stylesheet" href="/angularjs/main.css">
 <script src="/jquery-3.1.1.min.js"></script>
 <script src="/bootstrap/js/bootstrap.min.js"></script>
 </head>
@@ -25,7 +25,7 @@
       </div>
     </div>
   </div>
-  <nav class="navbar navbar-inverse">
+  <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
       <div class="navbar-header">
         <a class="navbar-brand" href="#" onclick="setContent('/home.html')">CD Verwaltung</a>
@@ -37,7 +37,7 @@
       </ul>
     </div>
   </nav>
-    <div ng-view></div>
+  <div ng-view class="container"></div>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-animate.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-route.js"></script>
