@@ -1,11 +1,6 @@
-<!-- <form> -->
-<!--   <input type="text" ng-model="search"> -->
-<!-- </form> -->
-
-<div class="container-fluid content" ng-controller="AlbumsCtrl">
-  <div class="row content">
-    <div class="col-sm-3 sidenav">
-      <h4>Alben</h4>
+<div class="content" ng-controller="AlbumsCtrl">
+  <div class="col-sm-2">
+    <div class="container-fluid">
       <div class="input-group">
         <input type="text" class="form-control" placeholder="Suche" ng-model="search.label" placeholder="Suche"> <span class="input-group-btn">
           <button class="btn btn-default" type="button">
@@ -13,25 +8,19 @@
           </button>
         </span>
       </div>
-      <br>
       <ul class="nav nav-pills nav-stacked">
-        <li ng-class="{active: isActive(album)}" ng-click="loadAlbum(album)" class="list-group-item-action" ng-repeat="album in albums | filter:search | orderBy : 'label'"><a ng-click="loadAlbum(album)">{{album.label
-            }}</a></li>
+        <li ng-class="{active: isActive(album)}" ng-click="loadAlbum(album)" class="list-group-item-action" ng-repeat="album in albums | filter:search | orderBy : 'label'"><a
+          ng-click="loadAlbum(album)">{{album.label }}</a></li>
       </ul>
     </div>
-
-    <div class="col-sm-9 pre-scrollable" ng-controller="AlbumTitlesCtrl" stype="height 100%">
-      <div class="container-fluid">
-        <div class="row content">
-          <ul class="list-group">
-            <li class="list-group-item"><H3>{{selectedAlbum.label}}</H3></li>
-            <li class="list-group-item">{{selectedAlbum.description}}</li>
-            <li class="list-group-item" ng-repeat="title in albumTitles | orderBy : 'label'"><span class="glyphicon glyphicon-chevron-right"></span> {{title.label }}</li>
-
-          </ul>
-        </div>
-      </div>
-      <hr>
+  </div>
+  <div class="col-sm-10" ng-show="number !== undefined" ng-controller="AlbumTitlesCtrl">
+    <div class="container-fluid">
+      <ul class="list-group">
+        <li class="list-group-item"><H3>{{selectedAlbum.label}}</H3></li>
+        <li class="list-group-item">{{selectedAlbum.description}}</li>
+        <li class="list-group-item" ng-repeat="title in albumTitles | orderBy : 'label'"><span class="glyphicon glyphicon-chevron-right"></span> {{title.label }}</li>
+      </ul>
     </div>
   </div>
 </div>
