@@ -1,12 +1,25 @@
 <div class="content" ng-controller="ArtistsCtrl" lazy-load>
   <div class="input-group" style="margin-bottom: 15px">
     <div class="input-group-btn">
-      <button class='btn btn-primary' ng-click="resetList()">RESET</button>
+      <button class='btn btn-primary' ng-click="search=''">RESET</button>
     </div>
     <input class="form-control" ng-model="search">
   </div>
 
-  <ul class="list-group" style=" overflow-y: auto" >
-    <li class="list-group-item" ng-repeat="artist in artists | filter: {'label': search}"> {{ artist.label }}</li>
-  </ul>
+  <div class="list-group" style="overflow-y: auto">
+    <a class="list-group-item clearfix" ng-repeat="artist in artists | filter: {'label': search}">
+    <span class="glyphicon glyphicon-file"></span> {{ artist.label }} <span
+      class="pull-right">
+        <button class="btn btn-xs btn-primary" ng-show="!show" ng-click="show=true">
+          <span class="glyphicon glyphicon-remove"></span>
+        </button>
+        <button class="btn btn-xs btn-danger" ng-show="show" ng-click="deleteArtist(title)">
+          <span class="glyphicon glyphicon-ok"></span>
+        </button>
+        <button class="btn btn-xs btn-primary" ng-show="show" ng-click="show=false">
+          <span class="glyphicon glyphicon-remove"></span>
+        </button>
+    </span>
+    </a>
+  </div>
 </div>
