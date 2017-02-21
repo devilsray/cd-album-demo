@@ -61,7 +61,6 @@ var app = angular.module('albumsApp', [ 'ngAnimate', 'ngRoute' ]).config(functio
       $scope.titles.push.apply($scope.titles, (titlesResponse.data._embedded.titles));
     });
   }
-  // };
   $scope.loadMoreRecords();
   
   $scope.deleteTitle = function (title) {
@@ -117,4 +116,4 @@ app.directive('lazyLoad', function() {
       })
     }
   }
-})
+});

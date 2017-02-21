@@ -2,19 +2,24 @@
 <div class="content" ng-controller="TitlesCtrl" lazy-load>
   <div class="input-group" style="margin-bottom: 15px">
     <div class="input-group-btn">
-      <button class='btn btn-primary' ng-click="resetList()">RESET</button>
+      <button class='btn btn-primary' ng-click="search=''">RESET</button>
     </div>
     <input class="form-control" ng-model="search">
   </div>
 
   <div class="list-group" style="overflow-y: auto">
-    <a class="list-group-item clearfix" ng-repeat="title in titles | filter: {'label': search}"> 
-     {{title.duration}} 
-    <span class="glyphicon glyphicon-file"></span> {{ title.label }} 
-    <span class="pull-right">
-        <button class="btn btn-xs btn-danger">
-          <span class="glyphicon glyphicon-trash" ng-click="deleteTitle(title)"></span>
+    <a class="list-group-item clearfix" ng-repeat="title in titles | filter: {'label': search}"> {{title.duration}} <span class="glyphicon glyphicon-file"></span> {{ title.label }} <span
+      class="pull-right">
+        <button class="btn btn-xs btn-primary" ng-show="!show" ng-click="show=true">
+          <span class="glyphicon glyphicon-remove"></span>
         </button>
+        <button class="btn btn-xs btn-danger" ng-show="show" ng-click="deleteTitle(title)">
+          <span class="glyphicon glyphicon-ok"></span>
+        </button>
+        <button class="btn btn-xs btn-primary" ng-show="show" ng-click="show=false">
+          <span class="glyphicon glyphicon-remove"></span>
+        </button>
+        <angular-smartconfirm confirm="deleteTitle(title)"><i class="fa fa-close"></i></smart-confirm>
     </span>
     </a>
   </div>
