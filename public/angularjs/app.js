@@ -28,7 +28,10 @@ var app = angular.module('albumsApp', [ 'ngAnimate', 'ngRoute' ]).config(functio
     }
   };
 }).controller('AlbumsCtrl', function($scope, $http, CurrentAlbum) {
-  $http.get('/albums?sort=label.dir=DESC', {headers : {'Content-Type' : 'application/json; charset=UTF-8'}
+  $http.get('/albums?sort=label.dir=DESC', {
+    headers : {
+      'Content-Type' : 'application/json; charset=UTF-8'
+    }
   }).then(function(albumsResponse) {
     $scope.albums = albumsResponse.data._embedded.albums;
     console.log(albumsResponse.data);
@@ -52,9 +55,21 @@ var app = angular.module('albumsApp', [ 'ngAnimate', 'ngRoute' ]).config(functio
     };
   });
 }).controller('TitlesCtrl', function($scope, $http) {
-  $http.get('/titles?sort=label.dir=DESC').then(function(titlesResponse) {
-    $scope.titles = titlesResponse.data._embedded.titles;
-  });
+  $scope.page = -1;
+  $scope.titles = [];
+  $scope.loadMoreRecords = function() {
+    console.log("loading records");
+    $scope.page++;
+    $http.get('/titles?sort=label.dir=DESC&size=5&page=' + $scope.page).then(function(titlesResponse) {
+      console.log("Length before " + $scope.titles.length);
+      console.log(titlesResponse);
+      console.log($scope.page);
+      $scope.titles.push.apply($scope.titles, (titlesResponse.data._embedded.titles));
+      console.log("Length after " + $scope.titles.length);
+    });
+  }
+  // };
+  $scope.loadMoreRecords();
 }).controller('AlbumTitlesCtrl', function($scope, $http, CurrentAlbum) {
   $scope.$watch(function() {
     return CurrentAlbum.getAlbum();
@@ -85,3 +100,17 @@ app.factory("CurrentAlbum", function() {
     setAlbum : setAlbum,
   }
 });
+
+app.directive('lazyLoad', function() {
+  return {
+    restrict : 'A',
+    link : function(scope, elem) {
+      var scroller = elem[0]
+      $(scroller).bind('scroll', function() {
+        if (scroller.scrollTop + scroller.offsetHeight >= scroller.scrollHeight) {
+          scope.$apply('loadMoreRecords()')
+        }
+      })
+    }
+  }
+})

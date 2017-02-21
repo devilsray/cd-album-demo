@@ -1,22 +1,12 @@
-<form>
-  <input type="text" ng-model="search">
-</form>
+  <div class="container" style="padding-top:40px"  ng-controller="TitlesCtrl">
+    <div class="input-group" style="margin-bottom: 15px">
+      <div class="input-group-btn">
+        <button class='btn btn-primary' ng-click="resetList()">RESET</button>
+      </div>
+      <input class="form-control" ng-model="search">
+    </div>
 
-<div class="col-sm-12 sidenav" ng-controller="TitlesCtrl">
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th class="col-md-8">Name</th>
-        <th class="col-md-1">Dauer</th>
-        <th class="col-md-3">Künstler</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="title in titles | filter:search | orderBy : 'label'">
-        <td scope="row">{{title.label}}</td>
-        <td>{{title.duration}}</td>
-        <td>--</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+    <ul class="list-group" style="height: 200px; overflow-y: auto" lazy-load>
+      <li class="list-group-item" ng-repeat="title in titles | filter: {'label': search}"> {{ title.label }}</li>
+    </ul>
+  </div>
