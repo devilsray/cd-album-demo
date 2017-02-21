@@ -2,18 +2,25 @@
 <div class="content" ng-controller="TitlesCtrl" lazy-load>
   <div class="input-group" style="margin-bottom: 15px">
     <div class="input-group-btn">
-      <button class='btn btn-primary' ng-click="search=''">RESET</button>
+      <button class='btn btn-primary'">Zurücksetzen</button>
     </div>
-    <input class="form-control" ng-model="search">
+    <input class="form-control" ng-model="search" placeholder="Suche">
     <div class="input-group-btn">
-      <button class='btn btn-success' data-toggle="modal" data-target="#modalCreateTitle"><span class="glyphicon glyphicon-plus"> </span></button>
+      <button class='btn btn-success' ng-click="activeTitle = {}; showArtistAssignment = false" data-toggle="modal" data-target="#modalCreateTitle"><span class="glyphicon glyphicon-plus"> </span></button>
     </div>
   </div>
 
 
   <div class="list-group" style="overflow-y: auto">
-    <a class="list-group-item clearfix" ng-repeat="title in titles | orderBy: 'label' | filter: {'label': search}"> {{title.duration}} <span class="glyphicon glyphicon-file"></span> {{ title.label }} <span
-      class="pull-right">
+    <a class="list-group-item clearfix" ng-repeat="title in titles | orderBy: 'label' | filter: search:strict"> 
+      {{title.duration}} 
+      <span class="glyphicon glyphicon-file"></span> 
+      {{ title.label }} 
+      <span class="glyphicon glyphicon-minus" ng-init="getArtist(title)" ng-show="title.artist !== undefined"> </span> {{title.artist}}
+      <span class="pull-right">
+        <button class="btn btn-xs btn-primary" ng-click="showEditModal(title)">
+          <span class="glyphicon glyphicon-edit"></span>
+        </button>
         <button class="btn btn-xs btn-primary" ng-show="!show" ng-click="show=true">
           <span class="glyphicon glyphicon-remove"></span>
         </button>
@@ -26,10 +33,9 @@
     </span>
     </a>
   </div>
-</div>
 
 <!-- Modal -->
-<div class="modal fade" id="modalCreateTitle" role="dialog" ng-controller="TitlesCtrl" ng-submit="saveTitle()">
+<div class="modal fade" id="modalCreateTitle" role="dialog" ng-submit="saveTitle()">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -42,13 +48,34 @@
             <label>Bezeichnung</label>
             <input type="text" class="form-control" placeholder="Bezeichnung" ng-model="activeTitle.label">
           </div>
-          <div class="form-group">
-            <label>Another label</label>
-            <input type="time" class="form-control" placeholder="Another input" ng-model="activeTitle.duration">
-          </div>
+<!--           <div class="form-group"> -->
+<!--             <label>Dauer</label> -->
+<!--             <input type="time" class="form-control" placeholder="Another input" ng-model="activeTitle.duration"> -->
+<!--           </div> -->
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
+        <div ng-show="showArtistAssignment">
+          <div class="content" ng-controller="ArtistsCtrl" lazy-load>
+            <div class="input-group" style="margin-bottom: 15px">
+              <div class="input-group-btn">
+                <button class='btn btn-primary' ng-click="search=''">Zurücksetzen</button>
+              </div>
+              <input class="form-control" ng-model="searchArtist" placeholder="Suche">
+            </div>
+          
+            <div class="list-group" style="overflow-y: auto; height: 150px;">
+              <a class="list-group-item clearfix" ng-repeat="artist in artists | filter: {'label': searchArtist}"> <span class="glyphicon glyphicon-file"></span> {{ artist.label }} <span class="pull-right">
+                  <button class="btn btn-xs btn-success" ng-click="assignArtistToTitle(artist, activeTitle)">
+                    <span class="glyphicon glyphicon-ok"></span> zuweisen
+                  </button>
+              </span>
+              </a>
+            </div>
+          </div>
+         </div>
       </div>
     </div>
   </div>
+</div>
+
 </div>

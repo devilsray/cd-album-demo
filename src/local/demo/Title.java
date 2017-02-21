@@ -24,9 +24,8 @@ public class Title {
   private String      label;
 
   @ManyToMany(fetch = FetchType.LAZY)
-  @JoinTable(name = "albums_titles_mapping", joinColumns = { @JoinColumn(name = "titles_id") }, inverseJoinColumns = {
-      @JoinColumn(name = "albums_id") })
-  private List<Album> albums; // = new HashSet<Album>();
+  @JoinTable(name = "albums_titles_mapping", joinColumns = { @JoinColumn(name = "titles_id") }, inverseJoinColumns = { @JoinColumn(name = "albums_id") })
+  private List<Album> albums;
 
   @OneToOne(targetEntity = Artist.class)
   @JoinColumn

@@ -61,14 +61,22 @@ var app = angular.module('albumsApp', [ 'ngAnimate', 'ngRoute' ]).config(functio
                                                       // list
   $scope.page = -1;
   $scope.titles = [];
-  $scope.activeTitle = {};
+  $scope.buffer = {};
+  $scope.activeTitle = {}
   $scope.loadMoreRecords = function() {
     $scope.page++;
-    $http.get('/titles?sort=label&size=20&page=' + $scope.page).then(function(titlesResponse) {
+    $http.get('/titles?sort=label&size=500&page=' + $scope.page).then(function(titlesResponse) { // TODO add filtering and better preloading
       $scope.titles.push.apply($scope.titles, (titlesResponse.data._embedded.titles));
     });
   }
   $scope.loadMoreRecords();
+  
+  $scope.showEditModal = function (title) {
+    $scope.activeTitle = title;
+    console.log($scope.activeTitle);
+    $scope.showArtistAssignment = true;
+    $('#modalCreateTitle').modal('show');
+  }
   
   $scope.deleteTitle = function (title) {
     $http.delete(title._links.self.href)
@@ -94,6 +102,12 @@ var app = angular.module('albumsApp', [ 'ngAnimate', 'ngRoute' ]).config(functio
         });
     });
   };
+  
+  $scope.getArtist = function (title) {
+    $http.get(title._links.artist.href).then(function(titlesResponse) {
+      title.artist = titlesResponse.data.label;
+    });
+  }
   
   $scope.saveTitle = function () {
     if (typeof($scope.activeTitle._links) === 'undefined') {
@@ -169,6 +183,20 @@ var app = angular.module('albumsApp', [ 'ngAnimate', 'ngRoute' ]).config(functio
   $http.get('/artists?sort=label.dir=DESC').then(function(artistsResponse) {
     $scope.artists = artistsResponse.data._embedded.artists;
   });
+  $scope.assignArtistToTitle = function(artist, activeTitle) {
+    $http({
+      method: 'PUT',
+      url: activeTitle._links.artist.href,
+      data: artist._links.self.href,
+      headers: {
+          'Content-Type': 'text/uri-list; charset=utf-8'
+      }}).then(function(result) {
+             console.log(result);// TODO handle status
+             activeTitle.artist = artist.label;
+         }, function(error) {
+             console.log(error);// TODO handle status
+         });
+  };
   
   $scope.deleteArtist = function (artist) {
     $http.delete(artist._links.self.href)
