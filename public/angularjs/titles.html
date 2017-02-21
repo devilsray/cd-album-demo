@@ -5,15 +5,19 @@
       <button class='btn btn-primary' ng-click="search=''">RESET</button>
     </div>
     <input class="form-control" ng-model="search">
+    <div class="input-group-btn">
+      <button class='btn btn-success' data-toggle="modal" data-target="#modalCreateTitle"><span class="glyphicon glyphicon-plus"> </span></button>
+    </div>
   </div>
 
+
   <div class="list-group" style="overflow-y: auto">
-    <a class="list-group-item clearfix" ng-repeat="title in titles | filter: {'label': search}"> {{title.duration}} <span class="glyphicon glyphicon-file"></span> {{ title.label }} <span
+    <a class="list-group-item clearfix" ng-repeat="title in titles | orderBy: 'label' | filter: {'label': search}"> {{title.duration}} <span class="glyphicon glyphicon-file"></span> {{ title.label }} <span
       class="pull-right">
         <button class="btn btn-xs btn-primary" ng-show="!show" ng-click="show=true">
           <span class="glyphicon glyphicon-remove"></span>
         </button>
-        <button class="btn btn-xs btn-danger" ng-show="show" ng-click="deleteTitle(title)" >
+        <button class="btn btn-xs btn-danger" ng-show="show" ng-click="deleteTitle(title)">
           <span class="glyphicon glyphicon-ok"></span>
         </button>
         <button class="btn btn-xs btn-primary" ng-show="show" ng-click="show=false">
@@ -21,5 +25,30 @@
         </button>
     </span>
     </a>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalCreateTitle" role="dialog" ng-controller="TitlesCtrl" ng-submit="saveTitle()">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Bearbeiten / Erstellen</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label>Bezeichnung</label>
+            <input type="text" class="form-control" placeholder="Bezeichnung" ng-model="activeTitle.label">
+          </div>
+          <div class="form-group">
+            <label>Another label</label>
+            <input type="time" class="form-control" placeholder="Another input" ng-model="activeTitle.duration">
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
   </div>
 </div>

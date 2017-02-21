@@ -31,7 +31,7 @@ var app = angular.module('albumsApp', [ 'ngAnimate', 'ngRoute' ]).config(functio
     }
   };
 }).controller('AlbumsCtrl', function($scope, $http, CurrentAlbum) {
-  $http.get('/albums?sort=label.dir=DESC', {
+  $http.get('/albums?sort=label', {
     headers : {
       'Content-Type' : 'application/json; charset=UTF-8'
     }
@@ -61,9 +61,10 @@ var app = angular.module('albumsApp', [ 'ngAnimate', 'ngRoute' ]).config(functio
                                                       // list
   $scope.page = -1;
   $scope.titles = [];
+  $scope.activeTitle = {};
   $scope.loadMoreRecords = function() {
     $scope.page++;
-    $http.get('/titles?sort=label.dir=DESC&size=20&page=' + $scope.page).then(function(titlesResponse) {
+    $http.get('/titles?sort=label&size=20&page=' + $scope.page).then(function(titlesResponse) {
       $scope.titles.push.apply($scope.titles, (titlesResponse.data._embedded.titles));
     });
   }
@@ -92,7 +93,66 @@ var app = angular.module('albumsApp', [ 'ngAnimate', 'ngRoute' ]).config(functio
         $("#message").removeClass("alert-error");
         });
     });
-  }
+  };
+  
+  $scope.saveTitle = function () {
+    if (typeof($scope.activeTitle._links) === 'undefined') {
+      $scope.createTitle();
+    } else {
+      $scope.updateTitle();
+    }
+  };
+  
+  $scope.createTitle = function () {
+    $http.post("/titles", $scope.activeTitle)
+    .success(function (data, status, headers) {
+      $scope.titles.push(data);
+      $("#message").alert();
+      $("#message").addClass("alert-success");
+      $("#messageContent").html("Titel wurde erstellt");
+      $('#modalCreateTitle').modal('hide');
+      $("#message").fadeTo(2000, 500).slideUp(500, function(){
+        $("#message").slideUp(500);
+        $("#message").removeClass("alert-success");
+        $scope.$apply();
+        $scope.activeTitle = {};
+      });
+    })
+    .error(function (data, status, header, config) {
+        $("#message").alert();
+        $("#message").addClass("alert-error");
+        $("#messageContent").html("Erstellen des Titels nicht möglich. Fehler " + status + " Meldung: " + data.message);
+        $("#message").fadeTo(2000, 500).slideUp(500, function(){
+        $("#message").slideUp(500);
+        $("#message").removeClass("alert-error");
+        });
+    });
+  };
+  
+  $scope.updateTitle = function () {
+    $http.put($scope.activeTitle._links.self.href, $scope.activeTitle)
+    .success(function (data, status, headers) {
+      $scope.activeTitle = {};
+      $("#message").alert();
+      $("#message").addClass("alert-success");
+      $("#messageContent").html("Titel wurde erstellt");
+      $('#modalCreateTitle').modal('hide');
+      $("#message").fadeTo(2000, 500).slideUp(500, function(){
+        $("#message").slideUp(500);
+        $("#message").removeClass("alert-success");
+        $scope.$apply();
+      });
+    })
+    .error(function (data, status, header, config) {
+        $("#message").alert();
+        $("#message").addClass("alert-error");
+        $("#messageContent").html("Erstellen des Titels nicht möglich. Fehler " + status + " Meldung: " + data.message);
+        $("#message").fadeTo(2000, 500).slideUp(500, function(){
+        $("#message").slideUp(500);
+        $("#message").removeClass("alert-error");
+        });
+    });
+  };
 }).controller('AlbumTitlesCtrl', function($scope, $http, CurrentAlbum) {
   $scope.$watch(function() {
     return CurrentAlbum.getAlbum();
