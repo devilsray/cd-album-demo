@@ -63,6 +63,17 @@ var app = angular.module('albumsApp', [ 'ngAnimate', 'ngRoute' ]).config(functio
   }
   // };
   $scope.loadMoreRecords();
+  
+  $scope.deleteTitle = function (title) {
+    $http.delete(title._links.self.href)
+    .success(function (data, status, headers) {
+      var index = $scope.titles.indexOf(title);
+      $scope.titles.splice(index, 1);
+    })
+    .error(function (data, status, header, config) {
+      console.log(data);
+    });
+  }
 }).controller('AlbumTitlesCtrl', function($scope, $http, CurrentAlbum) {
   $scope.$watch(function() {
     return CurrentAlbum.getAlbum();
