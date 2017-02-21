@@ -1,5 +1,8 @@
 'use strict';
 
+$(document).ready (function(){
+  $("#message").hide();
+})
 var app = angular.module('albumsApp', [ 'ngAnimate', 'ngRoute' ]).config(function($routeProvider) {
   $routeProvider.when('/home', {
     templateUrl : '/home.html'
@@ -52,7 +55,10 @@ var app = angular.module('albumsApp', [ 'ngAnimate', 'ngRoute' ]).config(functio
       // TODO load album's titles / rename function
     };
   });
-}).controller('TitlesCtrl', function($scope, $http) { // TODO ompimize to not spam the ram. Remove older emelemts from list
+}).controller('TitlesCtrl', function($scope, $http) { // TODO ompimize to not
+                                                      // spam the ram. Remove
+                                                      // older emelemts from
+                                                      // list
   $scope.page = -1;
   $scope.titles = [];
   $scope.loadMoreRecords = function() {
@@ -68,9 +74,23 @@ var app = angular.module('albumsApp', [ 'ngAnimate', 'ngRoute' ]).config(functio
     .success(function (data, status, headers) {
       var index = $scope.titles.indexOf(title);
       $scope.titles.splice(index, 1);
+      $("#message").alert();
+      $("#message").addClass("alert-success");
+      $("#messageContent").html("Titel wurde gelöscht");
+      $("#message").fadeTo(2000, 500).slideUp(500, function(){
+      $("#message").slideUp(500);
+      $("#message").removeClass("alert-success");
+      });
     })
     .error(function (data, status, header, config) {
       console.log(data);
+        $("#message").alert();
+        $("#message").addClass("alert-error");
+        $("#messageContent").html("Löschen des Titels nicht möglich. " + status);
+        $("#message").fadeTo(2000, 500).slideUp(500, function(){
+        $("#message").slideUp(500);
+        $("#message").removeClass("alert-error");
+        });
     });
   }
 }).controller('AlbumTitlesCtrl', function($scope, $http, CurrentAlbum) {
