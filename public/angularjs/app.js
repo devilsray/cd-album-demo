@@ -34,7 +34,6 @@ var app = angular.module('albumsApp', [ 'ngAnimate', 'ngRoute' ]).config(functio
     }
   }).then(function(albumsResponse) {
     $scope.albums = albumsResponse.data._embedded.albums;
-    console.log(albumsResponse.data);
     $scope.selectedAlbum = undefined;
     CurrentAlbum.setAlbum(undefined);
     $scope.config = {
@@ -48,7 +47,6 @@ var app = angular.module('albumsApp', [ 'ngAnimate', 'ngRoute' ]).config(functio
       return active;
     };
     $scope.loadAlbum = function(album) {
-      console.log("setting album");
       $scope.selectedAlbum = album;
       CurrentAlbum.setAlbum(album);
       // TODO load album's titles / rename function
@@ -58,14 +56,9 @@ var app = angular.module('albumsApp', [ 'ngAnimate', 'ngRoute' ]).config(functio
   $scope.page = -1;
   $scope.titles = [];
   $scope.loadMoreRecords = function() {
-    console.log("loading records");
     $scope.page++;
     $http.get('/titles?sort=label.dir=DESC&size=5&page=' + $scope.page).then(function(titlesResponse) {
-      console.log("Length before " + $scope.titles.length);
-      console.log(titlesResponse);
-      console.log($scope.page);
       $scope.titles.push.apply($scope.titles, (titlesResponse.data._embedded.titles));
-      console.log("Length after " + $scope.titles.length);
     });
   }
   // };
