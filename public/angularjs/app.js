@@ -65,7 +65,7 @@ var app = angular.module('albumsApp', [ 'ngAnimate', 'ngRoute' ]).config(functio
   $scope.activeTitle = {}
   $scope.loadMoreRecords = function() {
     $scope.page++;
-    $http.get('/titles?sort=label&size=500&page=' + $scope.page).then(function(titlesResponse) { // TODO add filtering and better preloading
+    $http.get('/titles?sort=label&size=200&page=' + $scope.page).then(function(titlesResponse) { // TODO add filtering and better preloading
       $scope.titles.push.apply($scope.titles, (titlesResponse.data._embedded.titles));
     });
   }
@@ -118,6 +118,7 @@ var app = angular.module('albumsApp', [ 'ngAnimate', 'ngRoute' ]).config(functio
   };
   
   $scope.createTitle = function () {
+    $scope.search = $scope.activeTitle.label;
     $http.post("/titles", $scope.activeTitle)
     .success(function (data, status, headers) {
       $scope.titles.push(data);
@@ -184,6 +185,7 @@ var app = angular.module('albumsApp', [ 'ngAnimate', 'ngRoute' ]).config(functio
     $scope.artists = artistsResponse.data._embedded.artists;
   });
   $scope.assignArtistToTitle = function(artist, activeTitle) {
+    $('#modalCreateTitle').modal('hide');
     $http({
       method: 'PUT',
       url: activeTitle._links.artist.href,
