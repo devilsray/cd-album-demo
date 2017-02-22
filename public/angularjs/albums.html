@@ -1,81 +1,90 @@
 <div class="content" ng-controller="AlbumsCtrl">
-  <div class="col-sm-4">
-    <div class="container-fluid">
-  <div class="input-group" style="margin-bottom: 15px">
-    <div class="input-group-btn">
-      <button class='btn btn-success' ng-click="activeTitle = {}; showTitleAssignment = false" title="Bearbeiten" data-toggle="modal" data-target="#modalEditAlbum">
-        <span class="glyphicon glyphicon-plus"> </span> Neu anlegen
-      </button>
-    </div>
-  </div>
-  <div class="input-group" style="margin-bottom: 15px">
-    <div class="input-group-btn">
-      <button class='btn btn-primary' ng-click="search=''">Zurücksetzen</button>
-    </div>
-    <input class="form-control" ng-model="search" placeholder="Suche">
-  </div>
-      <ul class="nav nav-pills nav-stacked">
-        <li ng-class="{active: isActive(album)}" ng-click="loadAlbum(album)" class="list-group-item-action" ng-repeat="album in albums | filter:search | orderBy : 'label'"><a
-          ng-click="loadAlbum(album)">{{album.label }}</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="col-sm-8" ng-show="selectedAlbum !== undefined">
-    <div class="container-fluid">
-      <ul class="list-group">
-        <li class="list-group-item"><H3>{{selectedAlbum.label}}</H3>
-          <button class="btn btn-xs btn-primary" ng-click="showEditModal(selectedAlbum);" data-toggle="tooltip" title="Bearbeiten">
-          <span class="glyphicon glyphicon-edit"></span>
-          </button>
-          </li>
-        <li class="list-group-item">{{selectedAlbum.description}}</li>
-        <li class="list-group-item" ng-repeat="title in selectedAlbumTitles"><span class="glyphicon glyphicon-chevron-right"></span> {{title.label }}</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- Modal -->
-  <div class="modal fade" id="modalEditAlbum" role="dialog" ng-submit="saveAlbum()">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Bearbeiten / Erstellen</h4>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="form-group">
-              <label>Bezeichnung</label> <input type="text" class="form-control" placeholder="Name" ng-model="selectedAlbum.label">
-            </div>
-            <div class="form-group">
-              <label>Beschreibung</label> <textarea class="form-control" placeholder="Beschreibung" rows="5" ng-model="selectedAlbum.description"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Speichern</button>
-          </form>
-          <br />
-          <div ng-show="showTitleAssignment">
-            <H4>Titel zuweisen</H4>
-            <div class=" form-group" ng-controller="TitlesCtrl" lazy-load>
-              <div class="input-group" style="margin-bottom: 15px">
+    <div class="col-sm-4">
+        <div class="container-fluid">
+            <div class="input-group" style="margin-bottom: 15px">
                 <div class="input-group-btn">
-                  <button class='btn btn-primary' ng-click="search=''">Zurücksetzen</button>
+                  <button class='btn btn-success' ng-click="selectedAlbum = undefined; selectedAlbumTitles = [] ; showTitleAssignment = false" data-toggle="modal" data-target="#modalEditAlbum">
+                    <span class="glyphicon glyphicon-plus"> </span> Neu anlegen
+                  </button>
                 </div>
-                <input class="form-control" ng-model="searchTitle" placeholder="Suche">
-              </div>
-
-              <div class="list-group" style="overflow-y: auto; height: 150px;">
-                <a class="list-group-item clearfix" ng-repeat="title in titles | filter: {'label': searchTitle}"> <span class="glyphicon glyphicon-file"></span> {{ title.label }} <span
-                  class="pull-right">
-                    <button class="btn btn-xs btn-success" ng-click="assignTitleToAlbum(title, selectedAlbum)">
-                      <span class="glyphicon glyphicon-ok"></span> zuweisen
-                    </button>
-                </span>
-                </a>
-              </div>
             </div>
-          </div>
+            <div class="input-group" style="margin-bottom: 15px">
+                <div class="input-group-btn">
+                    <button class='btn btn-primary' ng-click="search=''">Zurücksetzen</button>
+                </div>
+                <input class="form-control" ng-model="search" placeholder="Suche">
+            </div>
+            <ul class="nav nav-pills nav-stacked">
+                <li ng-click="loadAlbum(album)" class="list-group-item-action" ng-repeat="album in albums | filter:search | orderBy : 'label'" style="cursor: pointer;"><a ng-click="loadAlbum(album)">{{album.label }}</a></li>
+            </ul>
         </div>
-      </div>
     </div>
-  </div>
+    <div class="col-sm-8" ng-show="selectedAlbum !== undefined">
+        <div class="container-fluid">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-sm-10">
+                        <H3>{{selectedAlbum.label}}</H3>
+                        </div>
+                        <div class="col-sm-2">
+                        <button class="btn btn-xs btn-primary pull-right" ng-click="showEditModal(selectedAlbum);" data-toggle="tooltip" title="Bearbeiten">
+                          Bearbeiten
+                          <span class="glyphicon glyphicon-edit"></span>
+                        </button>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item">{{selectedAlbum.description}}</li>
+                <li class="list-group-item" ng-repeat="title in selectedAlbumTitles | orderBy: 'label'"><span class="glyphicon glyphicon-chevron-right"></span> {{title.label }}</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalEditAlbum" role="dialog" ng-submit="saveAlbum()">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Bearbeiten / Erstellen</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label>Bezeichnung</label> <input type="text" class="form-control" placeholder="Name" ng-model="selectedAlbum.label">
+                        </div>
+                        <div class="form-group">
+                            <label>Beschreibung</label> <textarea class="form-control" placeholder="Beschreibung" rows="5" ng-model="selectedAlbum.description"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Speichern</button>
+                    </form>
+                    <br />
+                    <div ng-show="showTitleAssignment">
+                        <H4>Titel zuweisen</H4>
+                        <div class=" form-group" ng-controller="TitlesCtrl" lazy-load>
+                            <div class="input-group" style="margin-bottom: 15px">
+                                <div class="input-group-btn">
+                                    <button class='btn btn-primary' ng-click="search=''">Zurücksetzen</button>
+                                </div>
+                                <input class="form-control" ng-model="searchTitle" placeholder="Suche">
+                            </div>
+
+                            <div class="list-group" style="overflow-y: auto; height: 150px;">
+                                <a class="list-group-item clearfix" ng-repeat="title in titles | filter: {'label': searchTitle}"> <span class="glyphicon glyphicon-file"></span> {{ title.label }} <span class="pull-right">
+                    <button ng-show="isTitleInMap(title, $parent.selectedAlbumTitlesHrefs) === false" class="btn btn-xs btn-success" ng-click="assignTitleToAlbum(title, selectedAlbum, selectedAlbumTitles, selectedAlbumTitlesHrefs)">
+                      <span class="glyphicon glyphicon-ok"></span> zuweisen
+                                    </button>
+                                    <button ng-show="isTitleInMap(title, $parent.selectedAlbumTitlesHrefs) === true" class="btn btn-xs btn-warning" ng-click="removeTitleFromAlbum(title, selectedAlbum, selectedAlbumTitles, selectedAlbumTitlesHrefs)">
+                        <span class="glyphicon glyphicon-ok"></span> entfernen
+                      </button>
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
