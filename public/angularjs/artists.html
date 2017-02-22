@@ -8,13 +8,13 @@
 
   <div class="list-group" style="overflow-y: auto">
     <a class="list-group-item clearfix" ng-repeat="artist in artists | filter: {'label': search}"> <span class="glyphicon glyphicon-file"></span> {{ artist.label }} <span class="pull-right">
-        <button class="btn btn-xs btn-primary" ng-show="!show" ng-click="show=true">
+        <button class="btn btn-xs btn-primary" ng-show="!show" ng-click="show=true" data-toggle="tooltip" title="Löschen">
           <span class="glyphicon glyphicon-remove"></span>
         </button>
-        <button class="btn btn-xs btn-danger" ng-show="show" ng-click="deleteArtist(artist)">
+        <button class="btn btn-xs btn-danger" ng-show="show" ng-click="deleteArtist(artist)" data-toggle="tooltip" title="Löschen bestätigen">
           <span class="glyphicon glyphicon-ok"></span>
         </button>
-        <button class="btn btn-xs btn-primary" ng-show="show" ng-click="show=false">
+        <button class="btn btn-xs btn-primary" ng-show="show" ng-click="show=false" data-toggle="tooltip" title="Löschen abbrechen">
           <span class="glyphicon glyphicon-remove"></span>
         </button>
     </span>
