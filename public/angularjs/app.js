@@ -5,7 +5,7 @@ $(document).ready(function() {
 })
 var app = angular.module('albumsApp', ['ngAnimate', 'ngRoute']).config(function($routeProvider) {
     $routeProvider.when('/home', {
-        templateUrl: '/home.html'
+        templateUrl: 'angularjs/home.html'
     }).when('/albums', {
         templateUrl: 'angularjs/albums.html'
     }).when('/titles', {
